@@ -1,58 +1,72 @@
 # Dashboard-de-Analise-de-Desempenho-e-Entrega-Logistica
+
 📊 Solução de Business Intelligence com Excel 2016 (Power Query e Power Pivot)
+
 🎯 Objetivo do Projeto
-Este projeto visa analisar os gargalos de entrega (atrasos), identificar padrões geográficos e comerciais e entender a saúde financeira das operações globais de uma empresa de logística e vendas
-. O desafio central foi extrair inteligência de uma base de dados com inconsistências sistêmicas (outliers de data), transformando-a em um ecossistema de decisão focado em Lead Time e Eficiência Operacional [11, Conversation History].
+Este ecossistema de Business Intelligence foi desenvolvido para analisar gargalos logísticos, padrões de consumo e a saúde financeira de uma operação global de vendas
+. O foco central é identificar a causa raiz de atrasos e fornecer uma visão limpa da eficiência operacional, eliminando ruídos causados por falhas sistêmicas de registro [Conversation History].
 🏗️ Arquitetura de Dados (Star Schema)
-Para garantir a performance e a escalabilidade no Excel 2016, a base foi modelada seguindo o padrão Star Schema (Fato/Dimensão)
+O projeto utiliza uma modelagem dimensional para garantir performance e integridade dos dados
 :
-F_Vendas_Logistica (Fato): Registra métricas como vendas, lucro, quantidades e o status de atraso (label)
+F_Vendas_Logistica (Fato): Centraliza métricas de vendas, lucro, quantidades e o status de atraso (label)
 .
-D_Clientes: Detalhes do perfil (Segmento) e localização da compra
+D_Clientes: Atributos dos consumidores (Segmento) e localização da loja
 .
 D_Produtos: Catálogo detalhado por Departamentos e Categorias
 .
-D_Destino: Geografia completa da entrega (Mercado, Região e País)
+D_Destino: Geografia completa da entrega (Mercado, Região, País e Cidade)
 .
-D_Calendario: Inteligência temporal criada no Power Query a partir de order_date
+D_Calendario: Inteligência temporal (Ano, Mês, Nome do Mês) criada via Power Query
 .
-🛠️ Tecnologias Utilizadas
-Excel 2016 "Puro"
+🛠️ Engenharia de Dados: Colunas Adicionadas
+Para viabilizar as análises, foram criadas colunas calculadas via DAX no Power Pivot:
+lead_time_days: Calcula a diferença bruta entre shipping_date e order_date [Conversation History].
+lead_time_days_Positive: Corrige erros de cálculo onde a data de envio era anterior à do pedido, garantindo que o cálculo de média ignore valores negativos [Conversation History].
+Shipping_Range: Categoriza os dias de envio em "buckets" (0-2 dias, 3-5 dias, etc.) para a criação do Histograma [Conversation History].
+Data_Quality_Detail (Status de Qualidade):
+Por que criamos: Identificamos discrepâncias críticas na base, como recordes de 1430 dias de atraso e -1429 dias de antecipação [Conversation History]. Sem esta coluna, a média geral de 57,4 dias estaria severamente distorcida [Conversation History].
+Função: Atua como um "Slicer de Auditoria", permitindo ao gestor escolher entre ver a "Realidade Operacional" (dados limpos) ou os "Erros de Sistema" (para correção pela equipe de TI) [Conversation History].
+📐 Medidas DAX Principais
+Implementadas para garantir precisão transacional (evitando contagem duplicada de itens):
+Total de Pedidos Únicos: =DISTINCTCOUNT(F_Vendas_Logistica[order_id]) [Conversation History].
+Média Geral de Dias de Envio: =AVERAGE(F_Vendas_Logistica[lead_time_days_Positive]) [Conversation History].
+Taxa Geral de Atraso: Proporção de pedidos onde label = 1
 .
-Power Query (ETL): Tratamento de dados, normalização e criação do modelo relacional
-.
-Power Pivot (Data Modeling): Criação de medidas DAX e relacionamentos [15, Conversation History].
-📈 Estrutura do Dashboard (4 Páginas)
+Volume Total de Itens: =SUM(F_Vendas_Logistica[order_item_quantity]) [Conversation History].
+Total de Entregas (Linhas): =COUNTROWS(F_Vendas_Logistica) [Conversation History].
+🖥️ Estrutura do Dashboard (4 Páginas)
 Página 1: Análise de Vendas e Mercado
-Foco no desempenho comercial global
+Foco: Desempenho Comercial.
+Tendência de Vendas por Mês (Linha): Identifica sazonalidade e picos de demanda
 .
-KPIs: Total de Vendas, Ticket Médio e Total de Pedidos
+Popularidade por Departamento (Barras): Revela quais setores (ex: Footwear, Apparel) geram mais receita
 .
-Visuais: Popularidade por Departamento, Distribuição por Segmento de Cliente e Tendência Mensal
+Distribuição por Segmento de Cliente (Pizza): Analisa o peso de consumidores Corporate vs Consumer
+.
+Top 10 Cidades de Destino (Barras): Foca os esforços comerciais nos mercados mais ativos
+
+![Página 1 - Análise de Vendas e Mercado] (Imagens/Página 1 Análise de Vendas e Mercado.png)
+
 .
 Página 2: Fatores de Atraso e Logística
-Diagnóstico de causa raiz para falhas de entrega
+Foco: Identificação de Gargalos.
+Taxa de Atraso por País (Barras): Identifica quais nações possuem problemas alfandegários ou de infraestrutura
 .
-KPIs: Taxa Geral de Atraso (proporção de label = 1)
+Atraso por Departamento/Categoria (Barras): Mostra se produtos específicos (ex: móveis pesados) atrasam mais que itens leves
 .
-Insights: Atrasos por Status do Pedido, Categoria, Departamento e País de destino
+Atraso por Status do Pedido (Pizza): Identifica se o atraso ocorre na separação (Processing) ou no envio (Shipping)
+.
+Atrasos por Segmento e Pagamento (Barras): Revela correlação entre métodos de pagamento lentos (ex: Boleto/Transferência) e atrasos no despacho
 .
 Página 3: Detalhamento dos Dias de Envio (Lead Time)
-Análise granular do tempo de transporte
+Foco: Eficiência de Transporte.
+Média de Dias por Modo de Envio (Barras): Valida se o frete First Class está sendo entregue mais rápido que o Standard
 .
-KPIs: Média de Dias de Envio, Recorde de Atraso e Média para pedidos atrasados
+Histograma de Frequência (Barras): Visualiza a "mancha" de entregas, provando que a maioria é rápida e a média é alta apenas por outliers [Conversation History].
+Top Cidades com Maior Lead Time (Barras): Localiza geograficamente as rotas mais ineficientes
 .
-Análise Operacional: Eficiência por Modo de Envio (shipping_mode) e histograma de frequência de prazos [18, Conversation History].
 Página 4: Análise de Pedidos e Comportamento
-Saúde do funil de vendas e perfil transacional [1, Conversation History].
-KPIs: Total de Pedidos Únicos, Média de Itens por Pedido e Volume de Itens [Conversation History].
-Visuais: Volume mensal, Status do Pedido (incluindo Suspeita de Fraude) e Preferência de Pagamento [1, Conversation History].
-💡 Diferencial Técnico: Data Quality & Outliers
-Um dos maiores valores deste projeto foi o tratamento de Qualidade de Dados. Identificamos registros com 1430 dias de atraso e -1429 dias de antecipação, indicadores de erros sistêmicos [Conversation History].
-Foi implementada uma coluna calculada de Status de Qualidade (Data_Quality_Detail) que permite ao usuário filtrar o dashboard entre:
-Dados Operacionais: Realidade logística limpa para tomada de decisão.
-Erros Sistêmicos: Auditoria para a equipe de TI corrigir a base original [Conversation History].
-📂 Como Explorar este Repositório
-Dashboard_Logistica_Vendas.xlsx: Arquivo principal com o modelo de dados e visuais.
-Scripts_PowerQuery/: Documentação da lógica de ETL aplicada.
-Calculos_DAX/: Lista das medidas principais (Total Pedidos Únicos, Taxa de Atraso, etc.).
+Foco: Operação e Fraude.
+Status do Pedido (Rosca): Monitoramento crítico de saúde, destacando pedidos cancelados ou com Suspeita de Fraude (SUSPECTED_FRAUD) [1, 23, Conversation History].
+Preferência de Pagamento (Barras): Ajuda na negociação de taxas com operadoras de cartão e bancos [1, 19, Conversation History].
+Média de Itens por Pedido (Cartão): Indica o comportamento do carrinho de compras e eficiência de cross-selling [Conversation History].
