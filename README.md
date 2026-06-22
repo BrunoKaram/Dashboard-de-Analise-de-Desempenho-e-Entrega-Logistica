@@ -1,7 +1,6 @@
-# Dashboard-de-Analise-de-Desempenho-e-Entrega-Logistica
+# 📊 Dashboard de Análise de Desempenho e Entrega Logística
 
-📊 Solução de Business Intelligence com Excel 2016 (Power Query e Power Pivot)
-
+Solução de BI de Ponta a Ponta com Excel 2016 (Power Query & Power Pivot)
 🎯 Objetivo do Projeto
 Este ecossistema de Business Intelligence foi desenvolvido para analisar gargalos logísticos, padrões de consumo e a saúde financeira de uma operação global de vendas
 . O foco central é identificar a causa raiz de atrasos e fornecer uma visão limpa da eficiência operacional, eliminando ruídos causados por falhas sistêmicas de registro [Conversation History].
@@ -44,9 +43,6 @@ Popularidade por Departamento (Barras): Revela quais setores (ex: Footwear, Appa
 Distribuição por Segmento de Cliente (Pizza): Analisa o peso de consumidores Corporate vs Consumer
 .
 Top 10 Cidades de Destino (Barras): Foca os esforços comerciais nos mercados mais ativos
-
-![Página 1 - Análise de Vendas e Mercado] (Imagens/Página 1 Análise de Vendas e Mercado.png)
-
 .
 Página 2: Fatores de Atraso e Logística
 Foco: Identificação de Gargalos.
@@ -70,3 +66,6 @@ Foco: Operação e Fraude.
 Status do Pedido (Rosca): Monitoramento crítico de saúde, destacando pedidos cancelados ou com Suspeita de Fraude (SUSPECTED_FRAUD) [1, 23, Conversation History].
 Preferência de Pagamento (Barras): Ajuda na negociação de taxas com operadoras de cartão e bancos [1, 19, Conversation History].
 Média de Itens por Pedido (Cartão): Indica o comportamento do carrinho de compras e eficiência de cross-selling [Conversation History].
+🚀 Sugestão de Melhoria Sênior
+Para um design verdadeiramente "Clean", utilize uma Barra Lateral de Slicers (Segmentadores) sincronizados [Conversation History]. Garanta que o filtro de Status de Qualidade esteja presente em todas as páginas para que o usuário nunca tome decisões baseadas nos dados "sujos" de 1430 dias de atraso [Conversation History].
+Desenvolvido por [Seu Nome] Especialista em BI & Analytics
