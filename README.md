@@ -19,7 +19,7 @@ Business Intelligence • Excel • Power Query • Power Pivot • DAX
 
 Este ecossistema de Business Intelligence foi desenvolvido para analisar gargalos logísticos, padrões de consumo e a saúde financeira de uma operação global de vendas.
 
-O foco central é identificar a causa raiz de atrasos e fornecer uma visão limpa da eficiência operacional, eliminando ruídos causados por falhas sistêmicas de registro [Conversation History].
+O foco central é identificar a causa raiz de atrasos e fornecer uma visão limpa da eficiência operacional, eliminando ruídos causados por falhas sistêmicas de registro.
 
 ---
 
@@ -54,27 +54,27 @@ Para viabilizar as análises, foram criadas colunas calculadas via DAX no Power 
 
 ### 📅 lead_time_days
 
-Calcula a diferença bruta entre `shipping_date` e `order_date` [Conversation History].
+Calcula a diferença bruta entre `shipping_date` e `order_date`.
 
 ### ✅ lead_time_days_Positive
 
-Corrige erros de cálculo onde a data de envio era anterior à do pedido, garantindo que o cálculo de média ignore valores negativos [Conversation History].
+Corrige erros de cálculo onde a data de envio era anterior à do pedido, garantindo que o cálculo de média ignore valores negativos .
 
 ### 📊 Shipping_Range
 
-Categoriza os dias de envio em "buckets" (0-2 dias, 3-5 dias, etc.) para a criação do Histograma [Conversation History].
+Categoriza os dias de envio em "buckets" (0-2 dias, 3-5 dias, etc.) para a criação do Histograma .
 
 ### 🔍 Data_Quality_Detail (Status de Qualidade)
 
 #### Por que criamos?
 
-Identificamos discrepâncias críticas na base, como recordes de 1430 dias de atraso e -1429 dias de antecipação [Conversation History].
+Identificamos discrepâncias críticas na base, como recordes de 1430 dias de atraso e -1429 dias de antecipação .
 
-Sem esta coluna, a média geral de 57,4 dias estaria severamente distorcida [Conversation History].
+Sem esta coluna, a média geral de 57,4 dias estaria severamente distorcida .
 
 #### Função
 
-Atua como um "Slicer de Auditoria", permitindo ao gestor escolher entre ver a **"Realidade Operacional" (dados limpos)** ou os **"Erros de Sistema" (para correção pela equipe de TI)** [Conversation History].
+Atua como um "Slicer de Auditoria", permitindo ao gestor escolher entre ver a **"Realidade Operacional" (dados limpos)** ou os **"Erros de Sistema" (para correção pela equipe de TI)** .
 
 ---
 
@@ -153,7 +153,7 @@ label = 1
 **Foco:** Eficiência de Transporte.
 
 - Média de Dias por Modo de Envio (Barras): Valida se o frete First Class está sendo entregue mais rápido que o Standard.
-- Histograma de Frequência (Barras): Visualiza a "mancha" de entregas, provando que a maioria é rápida e a média é alta apenas por outliers [Conversation History].
+- Histograma de Frequência (Barras): Visualiza a "mancha" de entregas, provando que a maioria é rápida e a média é alta apenas por outliers .
 - Top Cidades com Maior Lead Time (Barras): Localiza geograficamente as rotas mais ineficientes.
 
 ![Página 3 - Detalhamento dos Dias de Envio (Lead Time)](<Imagens/Página%203%20Detalhamento%20dos%20Dias%20de%20Envio%20(Lead%20Time).png>)
@@ -166,7 +166,7 @@ label = 1
 
 - Status do Pedido (Rosca): Monitoramento crítico de saúde, destacando pedidos cancelados ou com Suspeita de Fraude (SUSPECTED_FRAUD) [1, 23, Conversation History].
 - Preferência de Pagamento (Barras): Ajuda na negociação de taxas com operadoras de cartão e bancos [1, 19, Conversation History].
-- Média de Itens por Pedido (Cartão): Indica o comportamento do carrinho de compras e eficiência de cross-selling [Conversation History].
+- Média de Itens por Pedido (Cartão): Indica o comportamento do carrinho de compras e eficiência de cross-selling .
 
 ![Página 4 - Análise de Pedidos e Comportamento](Imagens/Página%204%20Análise%20de%20Pedidos%20e%20Comportamento.png)
 
